@@ -20,8 +20,9 @@ def prep_img(imagename: str, size=None, mean=MEAN, std=STD):
     """
     im = Image.open(imagename)
     # resize so that minimal side length is size pixels
-    texture = TF.resize(im, size)
-    texture_tensor = TF.to_tensor(texture).unsqueeze(0)  # add batch dimension
+    if size is not None:
+        im = TF.resize(im, size)
+    texture_tensor = TF.to_tensor(im).unsqueeze(0)  # add batch dimension
     # remove alpha channel if any
     if texture_tensor.shape[1] == 4:
         print('removing alpha channel')
