@@ -1,3 +1,6 @@
 # image files
 *.png
 *.jpg
+
+# python binary files
+__pycache__
