@@ -116,7 +116,7 @@ def register_model_hooks(
     """
     outputs = [None for idx in target_layers]
     handles = [
-        register_layer_hook(layer, outputs, idx) for idx, layer in enumerate(model)
+        register_layer_hook(model[layer_idx], outputs, idx) for idx, layer_idx in enumerate(target_layers)
     ]
     return outputs, handles
 
