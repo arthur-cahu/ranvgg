@@ -53,7 +53,21 @@ def to_pil(tensor: torch.Tensor):
     img = TF.to_pil_image(img)
     return img
 
+
+def normal_like(target_image: torch.tensor, std: float):
+    """Returns a white noise compatible with target_image of the specified std
+    and mean 0.
+    """
+    return torch.normal(
+        0,
+        std,
+        target_image.shape,
+        device=target_image.device,
+        requires_grad=True
+    )
+
 # model management
+
 
 def randomize_layer_(layer, mean=0, std=0.015):
     with torch.no_grad():
@@ -63,6 +77,7 @@ def randomize_layer_(layer, mean=0, std=0.015):
                 std,
                 param.shape
             ))
+
 
 def randomize_model_(model, mean=0, std=0.015):
     """Replaces the weights of the convolutional layers of the model with a 
