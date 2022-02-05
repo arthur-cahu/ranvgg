@@ -79,6 +79,22 @@ def randomize_layer_(layer, mean=0, std=0.015):
             ))
 
 
+def conv2D_like(layer: nn.Conv2d):
+    return nn.Conv2d(
+        in_channels=layer.in_channels,
+        out_channels=layer.out_channels,
+        kernel_size=layer.kernel_size,
+        stride=layer.stride,
+        padding=layer.padding,
+        dilation=layer.dilation,
+        groups=layer.groups,
+        bias=layer.bias is not None,
+        padding_mode=layer.padding_mode,
+        device=layer.weight.device,
+        dtype=layer.weight.dtype
+    )
+
+
 def randomize_model_(model, mean=0, std=0.015):
     """Replaces the weights of the convolutional layers of the model with a 
     white noise.
